@@ -1,6 +1,5 @@
 <script lang="ts">
 	import SectionContainer from '$lib/components/SectionContainer.svelte';
-
 </script>
 
 <svelte:head>
@@ -10,19 +9,20 @@
 <div class="container section-1">
 	<div class="row flex-column-center">
 		<h1 class="s1-h2">Circular Financial Chain</h1>
-    <p class="s1-p0">ReFi technology on ICP network </p>
+		<p class="s1-p0">ReFi technology on ICP network</p>
 		<p class="s1-p">Build a Sircle and Fairity Token</p>
-		<p class="s1-p1">
-			Tokes for social and environmental credit for yourself and others.
+		<p class="s1-p1">Tokes for social and environmental credit for yourself and others.</p>
 	</div>
 </div>
 <div class="container section-2">
-  <div class="row flex-column-center">
-    <h2 class="s2-h2">Products and Services</h2>
+	<div class="row flex-column-center">
+		<h2 class="s2-h2">Products and Services</h2>
 
-    <p>			Tokes for social and environmental credit for yourself and others. <p-1>
-    <SectionContainer>  </SectionContainer>
-    
+		<p>
+			Tokes for social and environmental credit for yourself and others. <p-1>
+				<SectionContainer />
+			</p-1>
+		</p>
 	</div>
 </div>
 
@@ -70,7 +70,6 @@
 		justify-content: center;
 		align-items: center;
 		background-image: url('/src/lib/assets/green home.jpg');
-		opacity: 0.7;
 	}
 
 	.section-2 {
@@ -81,7 +80,6 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		opacity: 0.7;
 	}
 
 	.s1-h2 {
@@ -107,7 +105,7 @@
 
 		letter-spacing: 0.03em;
 	}
-  .s1-p0 {
+	.s1-p0 {
 		text-align: center;
 		color: azure;
 		max-width: 80vw;

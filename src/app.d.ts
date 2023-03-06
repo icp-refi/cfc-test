@@ -1,13 +1,25 @@
-// See https://kit.svelte.dev/docs/types#app
-// for information about these interfaces
-// and what to do when importing types
-declare global {
-	namespace App {
-		// interface Error {}
-		// interface Locals {}
-		// interface PageData {}
-		// interface Platform {}
-	}
+/// <reference types="vite/client" />
+
+interface ImportMetaEnv {
+  readonly VITE_API_URL: string
 }
 
-export {};
+interface ImportMeta {
+  readonly env: ImportMetaEnv
+}
+
+interface Window {
+  ethereum: any;
+}
+
+interface PaginationData {
+  currentPage: number
+  firstPage: number
+  firstPageUrl: string
+  lastPage: number
+  lastPageUrl: string
+  nextPageUrl: string
+  perPage: number
+  previousPageUrl: string
+  total: number
+}

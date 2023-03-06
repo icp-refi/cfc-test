@@ -81,7 +81,6 @@
 		justify-content: center;
 		align-items: center;
 		background-image: url('/src/lib/assets/green home.jpg');
-		opacity: 0.7;
 	}
 
 	.s1-h2 {

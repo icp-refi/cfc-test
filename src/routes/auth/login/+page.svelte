@@ -5,42 +5,75 @@
 </script>
 
 <script lang="ts">
+	import AuthService from '$lib/services/auth/auth.service';
 	import colors from '$lib/stores/colors';
 	import { goto } from '$app/navigation';
-
-	let email: string = '',
-		password: string = '',
-		error: boolean = false,
-		errorMessage: string | undefined = undefined,
-		loading: boolean = false;
-
-	function login() {
-		goto('/app');
-	}
-
+	import logo from '$lib/assets/logo_2.png';
 	import StandardButton from '$lib/components/common/StandardButton.svelte';
 	import LabelAndTextfield from '$lib/components/LabelAndTextfield.svelte';
-	import logo from '$lib/assets/logo_2.png';
+	import LinkButton from '$lib/components/LinkButton.svelte';
+	import LabelAndCheckbox from '$lib/components/LabelAndCheckbox.svelte';
+	import Icon from '@likable-hair/svelte/media/Icon.svelte';
+	
+	let email: string = '',
+		password: string = '';
+
+	function login() {
+		//const service = new AuthService({ fetch });
+		goto('/app');
+
+
+		// service
+		// 	.login({
+		// 		data: {
+		// 			email,
+		// 			password
+		// 		}
+		// 	})
+		// 	.then(() => {
+		// 		goto('/');
+		// 	});
+	}
+
+
+	function loginWithMetamask() {
+		const service = new AuthService({ fetch });
+		service
+      .loginWithMetamask()
+      .then(() => {
+			  goToWalletMap() 
+		});
+	}
+
+	function loginWithGoogle() {
+		const service = new AuthService({ fetch });
+		service.loginWithGoogle();
+	}
+
+  function goToWalletMap() {
+    goto('/wallet/map')
+  }
+
+  function goToSignup() {
+    goto('/auth/signup')
+  }
+
+
 </script>
 
 <div class="container" style:background-color={$colors.thinContrast}>
 	<img
-		style:position="absolute"
-		style:height="100vh"
-		style:object-fit="cover"
-		style:z-index="0"
-		style:opacity="40%"
-		src={logo}
-		alt="logo"
-	/>
-	<div class="card" style:z-index="20" style:background-color={$colors.background}>
-		<div
-			style:display="flex"
-			style:justify-content="center"
-			style:margin-bottom="60px"
-			style:margin-top="30px"
-		>
-			<img
+	style:position="absolute"
+	style:height="100vh"
+	style:object-fit="cover"
+	style:z-index="0"
+	style:opacity="40%"
+	src={logo}
+	alt="logo"
+/><div class="card" style:z-index="1" 
+style:background-color={$colors.background}>
+	
+	<img
 				style:margin-left="30px"
 				style:margin-bottom=""
 				style:transition="0.2s"
@@ -54,38 +87,51 @@
 				style:z-index="0"
 				src={logo}
 				alt="logo"
-			/>
+			/>	
+	<h2>Log in</h2>
+		<div style:margin-top="20px" style:margin-bottom="20px">
+			<StandardButton type="standard" on:click={loginWithGoogle}>
+				<Icon name="mdi-google" color={$colors.contrast} size={11} />
+				<span style:margin-left="10px"> Log in with Google </span>
+			</StandardButton>
 		</div>
-		<h2>Log in</h2>
+		<div style:margin-top="20px" style:margin-bottom="20px">
+			<StandardButton type="standard" on:click={loginWithMetamask}>
+				<Icon name="mdi-metamask" color={$colors.contrast} size={11} />
+				<span style:margin-left="10px"> Log in with Metamask </span>
+			</StandardButton>
+		</div>
 		<hr style:background-color={$colors.thinContrast} style:border="none" style:height="1px" />
 		<form style:margin-top="20px">
-			<LabelAndTextfield
-				label="Email o Username"
-				placeholder="email o username"
-				name="email"
-				bind:value={email}
-				{error}
-			/>
-			<LabelAndTextfield
-				label="Password"
-				name="password"
-				type="password"
-				bind:value={password}
-				{error}
-			/>
-		</form>
-		{#if error}
-			<div
-				style:margin-top="20px"
-				style:margin-bottom="20px"
-				style:text-align="center"
-				style:color={$colors.warning}
-			>
-				{errorMessage}
+			<LabelAndTextfield label="Email" placeholder="email" name="email" bind:value={email} />
+			<LabelAndTextfield label="Password" name="password" type="password" bind:value={password} />
+			<div style:margin-top="10px">
+				<LabelAndCheckbox id="remember-me" label="Remember me" />
 			</div>
-		{/if}
-		<div style:margin-top="20px" style:margin-bottom="20px">
-			<StandardButton on:click={login} {loading}>Login</StandardButton>
+		</form>
+		<div style:margin-top="20px">
+			<StandardButton on:click={login}>Login</StandardButton>
+		</div>
+		<div
+			style:margin-top="20px"
+			style:margin-bottom="20px"
+			style:display="flex"
+			style:justify-content="center"
+		>
+			<LinkButton>Forgot Password?</LinkButton>
+		</div>
+		<hr style:background-color={$colors.thinContrast} style:border="none" style:height="1px" />
+		<div
+			style:margin-top="20px"
+			style:margin-bottom="20px"
+			style:display="flex"
+			style:align-items="center"
+			style:flex-direction="column"
+		>
+			<div style:color={$colors.lightContrast} style:margin-bottom="5px">
+				Don't have an account?
+			</div>
+      <LinkButton on:click={goToSignup}>Sign up</LinkButton>
 		</div>
 	</div>
 </div>
